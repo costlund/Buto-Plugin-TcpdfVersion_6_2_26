@@ -1,0 +1,20 @@
+version: '1.0'
+history:
+  '1.0':
+    date: '2018-11-26'
+    description: 'First version.'
+plugin:
+  -
+    name: wf/array
+    version: 1.0.1
+sys:
+  -
+    name: mercury
+    version:
+      - '1.0'
+php:
+  - '7.2'
+author: Claes Östlund
+links:
+  - 'https://github.com'
+description: 'Add tcpdf version 6.2.26 to buto.'
