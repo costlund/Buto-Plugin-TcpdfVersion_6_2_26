@@ -67,8 +67,6 @@ pages:
         txt: This Cell are moved down by calling MoveY before.
         w: 120
         h: 5
-        
-        
     - {method: MoveY, data: {y: 10}}
     -
       method: Cell
