@@ -4,7 +4,6 @@ class PluginTcpdfVersion_6_2_26{
    <p>Add method param to fill $pdf with data.</p>
    */
   public function widget_output($widget_data){
-    //wfHelp::yml_dump($widget_data, true);
     /**
      * Include.
      */
@@ -17,6 +16,15 @@ class PluginTcpdfVersion_6_2_26{
      * Merge data.
      */
     $data = new PluginWfArray(array_merge($data->get(), $widget_data['data']));
+    /**
+     * Data method.
+     */
+    if($data->get('data_method/plugin') && $data->get('data_method/method')){
+      wfPlugin::includeonce($data->get('data_method/plugin'));
+      $obj = wfSettings::getPluginObj($data->get('data_method/plugin'));
+      $method = $data->get('data_method/method');
+      $data = $obj->$method($data);
+    }
     /**
      * Image path in SetHeaderData should be set from root. 
      */
@@ -56,20 +64,8 @@ class PluginTcpdfVersion_6_2_26{
             require_once(dirname(__FILE__).'/lang/eng.php');
             $pdf->setLanguageArray($l);
     }
-    
-    
     $pdf->setPrintHeader($data->get('print_header'));
     $pdf->setPrintFooter($data->get('print_footer'));
-    
-    /**
-     * Data method.
-     */
-    if($data->get('data_method/plugin') && $data->get('data_method/method')){
-      wfPlugin::includeonce($data->get('data_method/plugin'));
-      $obj = wfSettings::getPluginObj($data->get('data_method/plugin'));
-      $method = $data->get('data_method/method');
-      $data = $obj->$method($data);
-    }
     /**
      * Pages.
      */
