@@ -23,6 +23,7 @@ data:
     header_logo_width: '30'
     header_title: 'PluginTcpdfVersion_6_2_26'
     header_string: 'Buto plugin wrapped around tcpdf.'
+    footer_text: 'A Buto solution'
     html: ''
     filename: 'buto_tcpdf_version_6_2_26.pdf'
     data_method_remove_this_to_test_DATA_METHOD:

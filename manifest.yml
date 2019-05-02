@@ -1,5 +1,8 @@
-version: '1.0'
+version: '1.1'
 history:
+  '1.1':
+    date: '2019-05-02'
+    description: 'Add footer method.'
   '1.0':
     date: '2018-11-26'
     description: 'First version.'
@@ -16,5 +19,4 @@ php:
   - '7.2'
 author: Claes Östlund
 links:
-  - 'https://github.com'
 description: 'Add tcpdf version 6.2.26 to buto.'

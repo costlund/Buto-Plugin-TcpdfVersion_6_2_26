@@ -33,10 +33,11 @@ class PluginTcpdfVersion_6_2_26{
      * Include tcpdf.
      */
     include_once dirname(__FILE__).'/lib/tcpdf.php';
+    include_once dirname(__FILE__).'/TCPDF_X.php';
     /**
      * Create doc.
      */
-    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf = new TCPDF_X(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
     /**
      * Custom values.
      */
@@ -66,6 +67,11 @@ class PluginTcpdfVersion_6_2_26{
     }
     $pdf->setPrintHeader($data->get('print_header'));
     $pdf->setPrintFooter($data->get('print_footer'));
+    /**
+     * Footer
+     */
+    $pdf->footer_text = $data->get('footer_text');
+    $pdf->Footer();
     /**
      * Pages.
      */
