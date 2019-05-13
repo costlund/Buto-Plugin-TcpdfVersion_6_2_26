@@ -126,12 +126,16 @@ class PluginTcpdfVersion_6_2_26{
       $pdf = $this->SetFillColor($pdf, $item);
     }elseif($method == 'WriteHTML'){
       $pdf = $this->WriteHTML($pdf, $item);
+    }elseif($method == 'WriteHTMLCell'){
+      $pdf = $this->WriteHTMLCell($pdf, $item);
     }elseif($method == 'Line'){
       $pdf = $this->Line($pdf, $item);
     }elseif($method == 'Image'){
       $pdf = $this->Image($pdf, $item);
     }elseif($method == 'Text'){
       $pdf = $this->Text($pdf, $item);
+    }else{
+      exit("Method $method does not exist.");
     }
     return $pdf;
   }
@@ -153,6 +157,12 @@ class PluginTcpdfVersion_6_2_26{
     $html = ''; $ln = true; $fill = false; $reseth = false; $cell = false; $align = '';
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
     $pdf->writeHTML( $html, $ln, $fill, $reseth, $cell, $align );
+    return $pdf;
+  }
+  private function WriteHTMLCell($pdf, $item){
+    $w = null; $h = null; $x = null; $y = null; $html=''; $border=0; $ln=0; $fill=false; $reseth=true; $align=''; $autopadding=true;
+    if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
+    $pdf->writeHTMLCell( $w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=false, $reseth=true, $align='', $autopadding=true );
     return $pdf;
   }
   private function MultiCell($pdf, $item, $data){
