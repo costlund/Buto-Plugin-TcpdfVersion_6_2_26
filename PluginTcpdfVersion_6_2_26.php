@@ -102,6 +102,15 @@ class PluginTcpdfVersion_6_2_26{
       $pdf = $obj->$method($pdf);
     }
     /**
+     * Clean up method.
+     */
+    if($data->get('clean_up_method/plugin') && $data->get('clean_up_method/method')){
+      wfPlugin::includeonce($data->get('clean_up_method/plugin'));
+      $obj = wfSettings::getPluginObj($data->get('clean_up_method/plugin'));
+      $method = $data->get('clean_up_method/method');
+      $obj->$method($data);
+    }
+    /**
      * Output.
      */
     $pdf->Output($data->get('filename'), 'I');

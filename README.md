@@ -1,11 +1,6 @@
 # Buto-Plugin-TcpdfVersion_6_2_26
 
-
-
-
-
-
-
+Render PDF from YML data.
 
 ```
 type: widget
@@ -26,9 +21,12 @@ data:
     footer_text: 'A Buto solution'
     html: ''
     filename: 'buto_tcpdf_version_6_2_26.pdf'
-    data_method_remove_this_to_test_DATA_METHOD:
+    data_method_REMOVE_THIS_TO_RUN_DATA_METHOD:
       plugin: 'tcpdf/version_6_2_26'
       method: data_method_example
+    clean_up_method_REMOVE_THIS_TO_RUN_CLEAN_UP_METHOD:
+      plugin: 'tcpdf/version_6_2_26'
+      method: clean_up_method_example
     pages:
       -
         - {method: SetTextColor, data: {col1: 255, col2: 0, col3: 0}}
