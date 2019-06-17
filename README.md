@@ -91,3 +91,7 @@ data:
         - {method: Line, data: {x1: 10, y1: 150, x2: 100, y2: 150, style: {width: 1}}}
 
 ```
+
+## I18N
+
+MultiCell and Cell are translated with PluginI18nTranslate_v1.

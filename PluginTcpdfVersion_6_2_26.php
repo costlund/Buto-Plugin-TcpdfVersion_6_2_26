@@ -101,6 +101,26 @@ class PluginTcpdfVersion_6_2_26{
       $method = $data->get('method/method');
       $pdf = $obj->$method($pdf);
     }
+    
+    
+    /**
+     * I18N
+     */
+    wfPlugin::includeonce('i18n/translate_v1');
+    $i18n = new PluginI18nTranslate_v1();
+    foreach ($data->get('pages') as $key => $value) {
+      foreach ($value as $key2 => $value2) {
+        $item = new PluginWfArray($value2);
+        if($item->get('method')=='MultiCell' || $item->get('method')=='Cell'){
+          $data->set("pages/$key/$key2/data/txt", $i18n->translateFromTheme($item->get('data/txt')));
+          //wfHelp::yml_dump($item);
+        }
+      }
+    }
+    wfHelp::yml_dump($data, true);
+    exit;
+    
+    
     /**
      * Clean up method.
      */
