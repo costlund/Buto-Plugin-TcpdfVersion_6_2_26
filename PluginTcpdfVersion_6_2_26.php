@@ -142,6 +142,8 @@ class PluginTcpdfVersion_6_2_26{
       $pdf = $this->Ln($pdf, $item);
     }elseif($method == 'MoveY'){
       $pdf = $this->MoveY($pdf, $item);
+    }elseif($method == 'SetY'){
+      $pdf = $this->SetY($pdf, $item);
     }elseif($method == 'SetTextColor'){
       $pdf = $this->SetTextColor($pdf, $item);
     }elseif($method == 'SetFillColor'){
@@ -257,6 +259,12 @@ class PluginTcpdfVersion_6_2_26{
   private function MoveY($pdf, $item){
     if($item->get('data/y')){
       $pdf->SetY($pdf->GetY()+$item->get('data/y'));
+    }
+    return $pdf;
+  }
+  private function SetY($pdf, $item){
+    if($item->get('data/y')){
+      $pdf->SetY($item->get('data/y'));
     }
     return $pdf;
   }
