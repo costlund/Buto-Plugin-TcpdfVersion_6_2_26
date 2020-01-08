@@ -206,7 +206,12 @@ class PluginTcpdfVersion_6_2_26{
     $maxh = 0;
     $valign = 'T';
     $fitcell = false;
-    if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
+    if($item->get('data')){
+      foreach ($item->get('data') as $key2 => $value2){
+        $value2 = $this->clean_value($value2);
+        eval('$'.$key2.' = "'.$value2.'";');
+      }
+    }
     if($item->get('data/y_minus')){
       $y = $pdf->GetY() - $item->get('data/y_minus');
     }
@@ -229,7 +234,12 @@ class PluginTcpdfVersion_6_2_26{
     $ignore_min_height = false;
     $calign = 'T';
     $valign = 'T'; //M
-    if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
+    if($item->get('data')){
+      foreach ($item->get('data') as $key2 => $value2){
+        $value2 = $this->clean_value($value2);
+        eval('$'.$key2.' = "'.$value2.'";');
+      }
+    }
     $pdf->Cell( $w, $h, $txt, $border, $ln, $align, $fill, $link, $stretch, $ignore_min_height, $calign, $valign );
     return $pdf;
   }
@@ -301,5 +311,8 @@ class PluginTcpdfVersion_6_2_26{
   }
   public function getElement($method, $data = array()){
     return array('method' => $method, 'data' => $data);
-  } 
+  }
+  private function clean_value($v){
+    return str_replace('"', '', $v);
+  }
 }

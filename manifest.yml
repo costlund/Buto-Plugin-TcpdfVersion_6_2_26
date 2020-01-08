@@ -1,5 +1,9 @@
-version: '1.4.0'
+version: '1.4.1'
 history:
+  '1.4.1':
+    date: '2020-01-08'
+    title: Clean value
+    description: 'Clean value in methods MultiCell and Cell.'
   '1.4.0':
     date: '2019-10-21'
     title: Set Y
