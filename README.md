@@ -8,6 +8,10 @@ data:
   plugin: tcpdf/version_6_2_26
   method: output
   data:
+    margin:
+      left: 15
+      top: 15
+      right: 10
     print_header: true
     print_footer: true
     author: 'Buto - PluginTcpdfVersion_6_2_26'

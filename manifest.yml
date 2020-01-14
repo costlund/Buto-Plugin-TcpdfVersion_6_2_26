@@ -1,5 +1,9 @@
-version: '1.4.1'
+version: '1.5.0'
 history:
+  '1.5.0':
+    date: '2020-01-13'
+    title: Margins
+    description: 'Set margin left, top, right.'
   '1.4.1':
     date: '2020-01-08'
     title: Clean value

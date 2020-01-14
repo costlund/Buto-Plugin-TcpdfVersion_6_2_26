@@ -69,7 +69,22 @@ class PluginTcpdfVersion_6_2_26{
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
     $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    /**
+     * Margin
+     */
+    if(!$data->get('margin/left')){
+      $data->set('margin/left', PDF_MARGIN_LEFT);
+    }
+    if(!$data->get('margin/top')){
+      $data->set('margin/top', PDF_MARGIN_TOP);
+    }
+    if(!$data->get('margin/right')){
+      $data->set('margin/right', PDF_MARGIN_RIGHT);
+    }
+    $pdf->SetMargins($data->get('margin/left'), $data->get('margin/top'), $data->get('margin/right'));
+    /**
+     * 
+     */
     $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
     $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
