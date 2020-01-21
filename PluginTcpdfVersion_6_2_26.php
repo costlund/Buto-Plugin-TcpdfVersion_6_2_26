@@ -174,7 +174,7 @@ class PluginTcpdfVersion_6_2_26{
     }elseif($method == 'Text'){
       $pdf = $this->Text($pdf, $item);
     }else{
-      exit("Method $method does not exist.");
+      exit("PluginTcpdfVersion_6_2_26 says: Method $method does not exist.");
     }
     return $pdf;
   }
