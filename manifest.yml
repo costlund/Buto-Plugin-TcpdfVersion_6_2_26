@@ -1,5 +1,9 @@
-version: '1.5.0'
+version: '1.5.1'
 history:
+  '1.5.1':
+    date: '2020-01-30'
+    title: AutoPageBreak
+    description: Decreased limt by -15.
   '1.5.0':
     date: '2020-01-13'
     title: Margins

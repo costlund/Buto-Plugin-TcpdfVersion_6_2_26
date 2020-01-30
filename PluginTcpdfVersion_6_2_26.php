@@ -87,7 +87,7 @@ class PluginTcpdfVersion_6_2_26{
      */
     $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM-15);
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
     if (false && @file_exists(dirname(__FILE__).'/lang/eng.php')) {
             require_once(dirname(__FILE__).'/lang/eng.php');
