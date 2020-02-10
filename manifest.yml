@@ -1,5 +1,9 @@
-version: '1.5.1'
+version: '1.6.0'
 history:
+  '1.6.0':
+    date: '2020-02-10'
+    title: Method new_page
+    description: Method to create a new page if Y is more than a specific value.
   '1.5.1':
     date: '2020-01-30'
     title: AutoPageBreak

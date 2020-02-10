@@ -173,8 +173,22 @@ class PluginTcpdfVersion_6_2_26{
       $pdf = $this->Image($pdf, $item);
     }elseif($method == 'Text'){
       $pdf = $this->Text($pdf, $item);
+    }elseif($method == 'new_page'){
+      $pdf = $this->new_page($pdf, $item);
     }else{
       exit("PluginTcpdfVersion_6_2_26 says: Method $method does not exist.");
+    }
+    return $pdf;
+  }
+  /**
+   * Add a new page if method GetY are more than data/y.
+   * @param object $pdf
+   * @param PluginWfArray $item
+   * @return object $pdf
+   */
+  private function new_page($pdf, $item){
+    if($pdf->getY()>$item->get('data/y')){
+      $pdf->AddPage();
     }
     return $pdf;
   }

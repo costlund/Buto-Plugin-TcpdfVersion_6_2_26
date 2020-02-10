@@ -93,9 +93,18 @@ data:
             w: 120
             h: 5
         - {method: Line, data: {x1: 10, y1: 150, x2: 100, y2: 150, style: {width: 1}}}
+        -
+          method: new_page
+          _: Add a new page if Y is more than 250.
+          data:
+            y: 250
 
 ```
 
 ## I18N
 
 MultiCell and Cell are translated with PluginI18nTranslate_v1.
+
+## New page
+
+Om could use method new_page to add a new page depending on Y.
