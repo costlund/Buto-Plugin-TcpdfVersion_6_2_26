@@ -1,5 +1,9 @@
-version: '1.6.0'
+version: '1.6.1'
 history:
+  '1.6.1':
+    date: '2020-02-10'
+    title: Performance
+    description: Better performance.
   '1.6.0':
     date: '2020-02-10'
     title: Method new_page

@@ -1,5 +1,6 @@
 <?php
 class PluginTcpdfVersion_6_2_26{
+  private $pdf = null;
   /**
    <p>Add method param to fill $pdf with data.</p>
    */
@@ -50,25 +51,25 @@ class PluginTcpdfVersion_6_2_26{
     /**
      * Create doc.
      */
-    $pdf = new TCPDF_X(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $this->pdf = new TCPDF_X(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
     /**
      * Custom values.
      */
-    $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor($data->get('author'));
-    $pdf->SetTitle($data->get('title'));
-    $pdf->SetSubject($data->get('subject'));
-    $pdf->SetKeywords($data->get('keywords'));
+    $this->pdf->SetCreator(PDF_CREATOR);
+    $this->pdf->SetAuthor($data->get('author'));
+    $this->pdf->SetTitle($data->get('title'));
+    $this->pdf->SetSubject($data->get('subject'));
+    $this->pdf->SetKeywords($data->get('keywords'));
     if($data->get('header_logo') && $data->get('header_logo_width')){
       $header_logo = wfArray::get($GLOBALS, 'sys/web_dir').$data->get('header_logo');
-      $pdf->SetHeaderData($header_logo, $data->get('header_logo_width'), $data->get('header_title'), $data->get('header_string'));
+      $this->pdf->SetHeaderData($header_logo, $data->get('header_logo_width'), $data->get('header_title'), $data->get('header_string'));
     }
     /**
      * Standard values.
      */
-    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+    $this->pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $this->pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+    $this->pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
     /**
      * Margin
      */
@@ -81,41 +82,41 @@ class PluginTcpdfVersion_6_2_26{
     if(!$data->get('margin/right')){
       $data->set('margin/right', PDF_MARGIN_RIGHT);
     }
-    $pdf->SetMargins($data->get('margin/left'), $data->get('margin/top'), $data->get('margin/right'));
+    $this->pdf->SetMargins($data->get('margin/left'), $data->get('margin/top'), $data->get('margin/right'));
     /**
      * 
      */
-    $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM-15);
-    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+    $this->pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+    $this->pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+    $this->pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM-15);
+    $this->pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
     if (false && @file_exists(dirname(__FILE__).'/lang/eng.php')) {
             require_once(dirname(__FILE__).'/lang/eng.php');
-            $pdf->setLanguageArray($l);
+            $this->pdf->setLanguageArray($l);
     }
-    $pdf->setPrintHeader($data->get('print_header'));
-    $pdf->setPrintFooter($data->get('print_footer'));
+    $this->pdf->setPrintHeader($data->get('print_header'));
+    $this->pdf->setPrintFooter($data->get('print_footer'));
     /**
      * Footer
      */
-    $pdf->footer_text = $data->get('footer_text');
-    $pdf->Footer();
+    $this->pdf->footer_text = $data->get('footer_text');
+    $this->pdf->Footer();
     /**
      * Pages.
      */
     if($data->get('pages')){
       foreach ($data->get('pages') as $ke => $valu) {
-        $pdf->AddPage();
+        $this->pdf->AddPage();
         foreach ($valu as $key => $value) {
           $item = new PluginWfArray($value);
           $method  = $item->get('method');
           if($method == 'Many'){
             foreach ($item->get('data') as $key2 => $value2) {
               $item2 = new PluginWfArray($value2);
-              $pdf = $this->runMethod($item2->get('method'), $pdf, $item2, $data);
+              $this->runMethod($item2->get('method'), $item2, $data);
             }
           }else{
-            $pdf = $this->runMethod($method, $pdf, $item, $data);
+            $this->runMethod($method, $item, $data);
           }
         }
       }
@@ -127,7 +128,7 @@ class PluginTcpdfVersion_6_2_26{
       wfPlugin::includeonce($data->get('method/plugin'));
       $obj = wfSettings::getPluginObj($data->get('method/plugin'));
       $method = $data->get('method/method');
-      $pdf = $obj->$method($pdf);
+      $this->pdf = $obj->$method($this->pdf);
     }
     /**
      * Clean up method.
@@ -141,44 +142,44 @@ class PluginTcpdfVersion_6_2_26{
     /**
      * Output.
      */
-    $pdf->Output($data->get('filename'), 'I');
+    $this->pdf->Output($data->get('filename'), 'I');
     exit;
   }
-  private function runMethod($method, $pdf, $item, $data){
+  private function runMethod($method, $item, $data){
     if($method == 'MultiCell'){
-      $pdf = $this->MultiCell($pdf, $item, $data);
+      $this->MultiCell($item, $data);
     }elseif($method == 'Cell'){
-      $pdf = $this->Cell($pdf, $item);
+      $this->Cell($item);
     }elseif($method == 'SetFont'){
-      $pdf = $this->SetFont($pdf, $item);
+      $this->SetFont($item);
     }elseif($method == 'AddPage'){
-      $pdf = $this->AddPage($pdf, $item);
+      $this->AddPage($item);
     }elseif($method == 'Ln'){
-      $pdf = $this->Ln($pdf, $item);
+      $this->Ln($item);
     }elseif($method == 'MoveY'){
-      $pdf = $this->MoveY($pdf, $item);
+      $this->MoveY($item);
     }elseif($method == 'SetY'){
-      $pdf = $this->SetY($pdf, $item);
+      $this->SetY($item);
     }elseif($method == 'SetTextColor'){
-      $pdf = $this->SetTextColor($pdf, $item);
+      $this->SetTextColor($item);
     }elseif($method == 'SetFillColor'){
-      $pdf = $this->SetFillColor($pdf, $item);
+      $this->SetFillColor($item);
     }elseif($method == 'WriteHTML'){
-      $pdf = $this->WriteHTML($pdf, $item);
+      $this->WriteHTML($item);
     }elseif($method == 'WriteHTMLCell'){
-      $pdf = $this->WriteHTMLCell($pdf, $item);
+      $this->WriteHTMLCell($item);
     }elseif($method == 'Line'){
-      $pdf = $this->Line($pdf, $item);
+      $this->Line($item);
     }elseif($method == 'Image'){
-      $pdf = $this->Image($pdf, $item);
+      $this->Image($item);
     }elseif($method == 'Text'){
-      $pdf = $this->Text($pdf, $item);
+      $this->Text($item);
     }elseif($method == 'new_page'){
-      $pdf = $this->new_page($pdf, $item);
+      $this->new_page($item);
     }else{
       exit("PluginTcpdfVersion_6_2_26 says: Method $method does not exist.");
     }
-    return $pdf;
+    return null;
   }
   /**
    * Add a new page if method GetY are more than data/y.
@@ -186,13 +187,13 @@ class PluginTcpdfVersion_6_2_26{
    * @param PluginWfArray $item
    * @return object $pdf
    */
-  private function new_page($pdf, $item){
-    if($pdf->getY()>$item->get('data/y')){
-      $pdf->AddPage();
+  private function new_page($item){
+    if($this->pdf->getY()>$item->get('data/y')){
+      $this->pdf->AddPage();
     }
-    return $pdf;
+    return null;
   }
-  private function Line($pdf, $item){
+  private function Line($item){
     $x1=10; $y1=10; $x2=20; $y2=20; $style = array();
     if($item->get('data')){
       foreach ($item->get('data') as $key2 => $value2){
@@ -203,22 +204,22 @@ class PluginTcpdfVersion_6_2_26{
         }
       }
     }
-    $pdf->Line( $x1, $y1, $x2, $y2, $style );
-    return $pdf;
+    $this->pdf->Line( $x1, $y1, $x2, $y2, $style );
+    return null;
   }
-  private function WriteHTML($pdf, $item){
+  private function WriteHTML($item){
     $html = ''; $ln = true; $fill = false; $reseth = false; $cell = false; $align = '';
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
-    $pdf->writeHTML( $html, $ln, $fill, $reseth, $cell, $align );
-    return $pdf;
+    $this->pdf->writeHTML( $html, $ln, $fill, $reseth, $cell, $align );
+    return null;
   }
-  private function WriteHTMLCell($pdf, $item){
+  private function WriteHTMLCell($item){
     $w = null; $h = null; $x = null; $y = null; $html=''; $border=0; $ln=0; $fill=false; $reseth=true; $align=''; $autopadding=true;
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
-    $pdf->writeHTMLCell( $w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=false, $reseth=true, $align='', $autopadding=true );
-    return $pdf;
+    $this->pdf->writeHTMLCell( $w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=false, $reseth=true, $align='', $autopadding=true );
+    return null;
   }
-  private function MultiCell($pdf, $item, $data){
+  private function MultiCell($item, $data){
     $w = 40;
     $h = 10;
     $txt = 'Multicell text.';
@@ -242,15 +243,15 @@ class PluginTcpdfVersion_6_2_26{
       }
     }
     if($item->get('data/y_minus')){
-      $y = $pdf->GetY() - $item->get('data/y_minus');
+      $y = $this->pdf->GetY() - $item->get('data/y_minus');
     }
     if(substr($txt, 0, 5)=='data:'){
       $txt = $data->get(str_replace('data:', '', $txt));
     }
-    $pdf->MultiCell( $w, $h, $txt, $border, $align, $fill, $ln, $x, $y, $reseth, $stretch, $ishtml, $autopadding, $maxh, $valign, $fitcell);
-    return $pdf;
+    $this->pdf->MultiCell( $w, $h, $txt, $border, $align, $fill, $ln, $x, $y, $reseth, $stretch, $ishtml, $autopadding, $maxh, $valign, $fitcell);
+    return null;
   }
-  private function Cell($pdf, $item){
+  private function Cell($item){
     $w = 40;
     $h = 5;
     $txt = 'Cell text.';
@@ -269,10 +270,10 @@ class PluginTcpdfVersion_6_2_26{
         eval('$'.$key2.' = "'.$value2.'";');
       }
     }
-    $pdf->Cell( $w, $h, $txt, $border, $ln, $align, $fill, $link, $stretch, $ignore_min_height, $calign, $valign );
-    return $pdf;
+    $this->pdf->Cell( $w, $h, $txt, $border, $ln, $align, $fill, $link, $stretch, $ignore_min_height, $calign, $valign );
+    return null;
   }
-  private function SetFont($pdf, $item){
+  private function SetFont($item){
     $family = 'helvetica';
     $style = '';
     $size = null;
@@ -280,57 +281,57 @@ class PluginTcpdfVersion_6_2_26{
     $subset = 'default';
     $out = true;
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
-    $pdf->SetFont( $family, $style, $size, $fontfile, $subset, $out );
-    return $pdf;
+    $this->pdf->SetFont( $family, $style, $size, $fontfile, $subset, $out );
+    return null;
   }
-  private function AddPage($pdf, $item){
+  private function AddPage($item){
     $orientation = '';$format = '';$keepmargins = false;$tocpage = false;
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
-    $pdf->AddPage( $orientation, $format, $keepmargins, $tocpage);
-    return $pdf;
+    $this->pdf->AddPage( $orientation, $format, $keepmargins, $tocpage);
+    return null;
   }
-  private function Ln($pdf, $item){
+  private function Ln($item){
     $h = ''; $cell = false;
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
-    $pdf->Ln( $h, $cell );
-    return $pdf;
+    $this->pdf->Ln( $h, $cell );
+    return null;
   }
-  private function MoveY($pdf, $item){
+  private function MoveY($item){
     if($item->get('data/y')){
-      $pdf->SetY($pdf->GetY()+$item->get('data/y'));
+      $this->pdf->SetY($this->pdf->GetY()+$item->get('data/y'));
     }
-    return $pdf;
+    return null;
   }
-  private function SetY($pdf, $item){
+  private function SetY($item){
     if($item->get('data/y')){
-      $pdf->SetY($item->get('data/y'));
+      $this->pdf->SetY($item->get('data/y'));
     }
-    return $pdf;
+    return null;
   }
-  private function SetTextColor($pdf, $item){
+  private function SetTextColor($item){
     $col1 = 0; $col2 = -1; $col3 = -1; $col4 = -1; $ret = false; $name = '';
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
-    $pdf->SetTextColor( $col1, $col2, $col3, $col4, $ret, $name );
-    return $pdf;
+    $this->pdf->SetTextColor( $col1, $col2, $col3, $col4, $ret, $name );
+    return null;
   }
-  private function SetFillColor($pdf, $item){
+  private function SetFillColor($item){
     $col1 = 0; $col2 = 0; $col3 = 0;
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
-    $pdf->SetFillColor( $col1, $col2, $col3 );
-    return $pdf;
+    $this->pdf->SetFillColor( $col1, $col2, $col3 );
+    return null;
   }
-  private function Image($pdf, $item){
+  private function Image($item){
     $file; $x = ''; $y = ''; $w = 0; $h = 0; $type = ''; $link = ''; $align = ''; $resize = false; $dpi = 300; $palign = ''; $ismask = false; $imgmask = false; $border = 0; $fitbox = false; $hidden = false; $fitonpage = false; $alt = false; $altimgs = array();
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
     $file = wfSettings::replaceDir($file);
-    $pdf->Image( $file, $x, $y, $w, $h, $type, $link, $align, $resize, $dpi, $palign, $ismask, $imgmask, $border, $fitbox, $hidden, $fitonpage, $alt, $altimgs );
-    return $pdf;
+    $this->pdf->Image( $file, $x, $y, $w, $h, $type, $link, $align, $resize, $dpi, $palign, $ismask, $imgmask, $border, $fitbox, $hidden, $fitonpage, $alt, $altimgs );
+    return null;
   }
-  private function Text($pdf, $item){
+  private function Text($item){
     $x = ''; $y = ''; $txt = ''; $fstroke = false; $fclip = false; $ffill = true; $border = 0; $ln = 0; $align = ''; $fill = false; $link = ''; $stretch = 0; $ignore_min_height = false; $calign = 'T'; $valign = 'M'; $rtloff = false;
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
-    $pdf->Text( $x, $y, $txt, $fstroke, $fclip, $ffill, $border, $ln, $align, $fill, $link, $stretch, $ignore_min_height, $calign, $valign, $rtloff );
-    return $pdf;
+    $this->pdf->Text( $x, $y, $txt, $fstroke, $fclip, $ffill, $border, $ln, $align, $fill, $link, $stretch, $ignore_min_height, $calign, $valign, $rtloff );
+    return null;
   }
   public function data_method_example($data){
     $data->set('pages', array(array(
