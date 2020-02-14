@@ -27,6 +27,10 @@ class PluginTcpdfVersion_6_2_26{
       $data = $obj->$method($data);
     }
     /**
+     * Header logo
+     */
+    $data->set('header_logo', wfSettings::replaceTheme($data->get('header_logo')));
+    /**
      * I18N
      */
     wfPlugin::includeonce('i18n/translate_v1');

@@ -1,5 +1,9 @@
-version: '1.6.1'
+version: '1.6.2'
 history:
+  '1.6.2':
+    date: '2020-02-14'
+    title: Header logo
+    description: Replace [theme] in header_logo string.
   '1.6.1':
     date: '2020-02-10'
     title: Performance
