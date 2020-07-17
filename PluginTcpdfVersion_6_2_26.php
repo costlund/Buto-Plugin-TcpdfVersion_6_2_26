@@ -224,6 +224,15 @@ class PluginTcpdfVersion_6_2_26{
     return null;
   }
   private function MultiCell($item, $data){
+    /**
+     * 
+     */
+    if($this->hide_element($item)){
+      return null;
+    }
+    /**
+     * 
+     */
     $w = 40;
     $h = 10;
     $txt = 'Multicell text.';
@@ -256,6 +265,15 @@ class PluginTcpdfVersion_6_2_26{
     return null;
   }
   private function Cell($item){
+    /**
+     * 
+     */
+    if($this->hide_element($item)){
+      return null;
+    }
+    /**
+     * 
+     */
     $w = 40;
     $h = 5;
     $txt = 'Cell text.';
@@ -348,5 +366,13 @@ class PluginTcpdfVersion_6_2_26{
   }
   private function clean_value($v){
     return str_replace('"', '', $v);
+  }
+  private function hide_element($item){
+    if($item->get('settings/enabled')===false){
+      return true;
+    }elseif($item->get('settings/disabled')===true){
+      return true;
+    }
+    return false;
   }
 }

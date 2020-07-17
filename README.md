@@ -108,3 +108,26 @@ MultiCell and Cell are translated with PluginI18nTranslate_v1.
 ## New page
 
 Om could use method new_page to add a new page depending on Y.
+
+## Enabled or Disabled
+Use this settings to hide element.
+```
+-
+  method: Cell
+  settings:
+    enabled: false
+  data:
+    txt: This element is not showing up.
+    w: 120
+    h: 5
+```
+```
+-
+  method: Cell
+  settings:
+    disabled: true
+  data:
+    txt: This element is not showing up.
+    w: 120
+    h: 5
+```
