@@ -10,6 +10,7 @@ header_title: 'PluginTcpdfVersion_6_2_26'
 header_string: 'Buto plugin wrapped around tcpdf.'
 html: ''
 filename: 'buto_tcpdf_version_6_2_26.pdf'
+dest: I
 data_method_remove_this_to_test_DATA_METHOD:
   plugin: 'tcpdf/version_6_2_26'
   method: data_method_example

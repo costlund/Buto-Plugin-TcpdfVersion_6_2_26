@@ -139,3 +139,20 @@ Use this settings to hide element.
     w: 120
     h: 5
 ```
+
+## Output
+
+Default output is in browser.
+```
+        dest: I
+```
+Download file.
+```
+        dest: D
+        filename: 'pdf_create_test.pdf'
+```
+Save file.
+```
+        dest: F
+        filename: '[app_dir]/theme/[theme]/page/pdf_create_test.pdf'
+```

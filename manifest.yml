@@ -1,5 +1,9 @@
-version: 1.7.1
+version: 1.8.0
 history:
+  1.8.0:
+    date: '2021-03-17'
+    title: Output
+    description: 'Output params.'
   1.7.1:
     date: '2021-03-17'
     title: Image

@@ -144,9 +144,13 @@ class PluginTcpdfVersion_6_2_26{
       $obj->$method($data);
     }
     /**
+     * 
+     */
+    $data->set('filename', wfSettings::replaceDir($data->get('filename')));
+    /**
      * Output.
      */
-    $this->pdf->Output($data->get('filename'), 'I');
+    $this->pdf->Output($data->get('filename'), $data->get('dest'));
     exit;
   }
   private function runMethod($method, $item, $data){
