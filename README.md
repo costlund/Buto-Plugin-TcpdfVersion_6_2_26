@@ -33,6 +33,14 @@ data:
       method: clean_up_method_example
     pages:
       -
+        - {method: MoveY, data: {y: 10}}
+        -
+          method: Image
+          data:
+            file: '[app_dir]/web/plugin/tcpdf/version_6_2_26/img/logo.png'
+            w: 60
+            h: 50
+        - {method: MoveY, data: {y: 60}}
         - {method: SetTextColor, data: {col1: 255, col2: 0, col3: 0}}
         - {method: SetFont, data: {size: 10, style: 'B'}}
         -

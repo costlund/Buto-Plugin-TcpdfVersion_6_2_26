@@ -343,9 +343,12 @@ class PluginTcpdfVersion_6_2_26{
     return null;
   }
   private function Image($item){
-    $file; $x = ''; $y = ''; $w = 0; $h = 0; $type = ''; $link = ''; $align = ''; $resize = false; $dpi = 300; $palign = ''; $ismask = false; $imgmask = false; $border = 0; $fitbox = false; $hidden = false; $fitonpage = false; $alt = false; $altimgs = array();
+    $file = ''; $x = ''; $y = ''; $w = 0; $h = 0; $type = ''; $link = ''; $align = ''; $resize = false; $dpi = 300; $palign = ''; $ismask = false; $imgmask = false; $border = 0; $fitbox = false; $hidden = false; $fitonpage = false; $alt = false; $altimgs = array();
     if($item->get('data')){foreach ($item->get('data') as $key2 => $value2){eval('$'.$key2.' = "'.$value2.'";');}}
     $file = wfSettings::replaceDir($file);
+    if(!wfFilesystem::fileExist($file)){
+      throw new Exception(__CLASS__." says: Could not find file $file!");
+    }
     $this->pdf->Image( $file, $x, $y, $w, $h, $type, $link, $align, $resize, $dpi, $palign, $ismask, $imgmask, $border, $fitbox, $hidden, $fitonpage, $alt, $altimgs );
     return null;
   }

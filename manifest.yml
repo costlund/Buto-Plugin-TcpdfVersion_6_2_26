@@ -1,5 +1,9 @@
-version: 1.7.0
+version: 1.7.1
 history:
+  1.7.1:
+    date: '2021-03-17'
+    title: Image
+    description: 'Image error handling. Readme improvement with image example.'
   1.7.0:
     date: '2020-07-17'
     title: 'Enabled and Disabled'
