@@ -46,7 +46,9 @@ class PluginTcpdfVersion_6_2_26{
     /**
      * Image path in SetHeaderData should be set from root. 
      */
-    define ('K_PATH_IMAGES', ''); // Not need this?
+    if(!defined('K_PATH_IMAGES')){
+      define ('K_PATH_IMAGES', ''); // Not need this?
+    }
     /**
      * Include tcpdf.
      */
@@ -55,7 +57,7 @@ class PluginTcpdfVersion_6_2_26{
     /**
      * Create doc.
      */
-    $this->pdf = new TCPDF_X(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $this->pdf = new TCPDF_X(PDF_PAGE_ORIENTATION, PDF_UNIT, $data->get('PDF_PAGE_FORMAT'), true, 'UTF-8', false);
     /**
      * Custom values.
      */
@@ -151,7 +153,9 @@ class PluginTcpdfVersion_6_2_26{
      * Output.
      */
     $this->pdf->Output($data->get('filename'), $data->get('dest'));
-    exit;
+    if($data->get('dest')!='F'){
+      exit;
+    }
   }
   private function runMethod($method, $item, $data){
     if($method == 'MultiCell'){

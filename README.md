@@ -2,12 +2,16 @@
 
 Render PDF from YML data.
 
+
+## Widget output
+
 ```
 type: widget
 data:
   plugin: tcpdf/version_6_2_26
   method: output
   data:
+    PDF_PAGE_FORMAT: A4
     margin:
       left: 15
       top: 15
@@ -109,15 +113,15 @@ data:
 
 ```
 
-## I18N
+### I18N
 
 MultiCell and Cell are translated with PluginI18nTranslate_v1.
 
-## New page
+### New page
 
 Om could use method new_page to add a new page depending on Y.
 
-## Enabled or Disabled
+### Enabled or Disabled
 Use this settings to hide element.
 ```
 -
@@ -140,7 +144,7 @@ Use this settings to hide element.
     h: 5
 ```
 
-## Output
+### Output
 
 Default output is in browser.
 ```
@@ -155,4 +159,17 @@ Save file.
 ```
         dest: F
         filename: '[app_dir]/theme/[theme]/page/pdf_create_test.pdf'
+```
+
+### PDF_PAGE_FORMAT
+
+Default value.
+```
+    PDF_PAGE_FORMAT: A4
+```
+Custom value.
+```
+    PDF_PAGE_FORMAT:
+      - 148
+      - 300
 ```
