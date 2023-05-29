@@ -1,5 +1,9 @@
-version: 1.9.2
+version: 1.9.3
 history:
+  1.9.3:
+    date: '2023-05-29'
+    title: Versions
+    description: 'Versions update.'
   1.9.2:
     date: '2023-01-02'
     title: Versions
@@ -70,7 +74,7 @@ plugin:
     version: 1.2.4
   -
     name: i18n/translate_v1
-    version: 1.10.0
+    version: 1.11.0
 sys:
   -
     name: mercury
