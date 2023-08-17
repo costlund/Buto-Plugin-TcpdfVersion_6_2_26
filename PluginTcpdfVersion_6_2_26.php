@@ -266,8 +266,8 @@ class PluginTcpdfVersion_6_2_26{
     if($item->get('data/y_minus')){
       $y = $this->pdf->GetY() - $item->get('data/y_minus');
     }
-    if(substr($txt, 0, 5)=='data:'){
-      $txt = $data->get(str_replace('data:', '', $txt));
+    if(wfPhpfunc::substr($txt, 0, 5)=='data:'){
+      $txt = $data->get(wfPhpfunc::str_replace('data:', '', $txt));
     }
     $this->pdf->MultiCell( $w, $h, $txt, $border, $align, $fill, $ln, $x, $y, $reseth, $stretch, $ishtml, $autopadding, $maxh, $valign, $fitcell);
     return null;
@@ -376,7 +376,7 @@ class PluginTcpdfVersion_6_2_26{
     return array('method' => $method, 'data' => $data);
   }
   private function clean_value($v){
-    return str_replace('"', '', $v);
+    return wfPhpfunc::str_replace('"', '', $v);
   }
   private function hide_element($item){
     if($item->get('settings/enabled')===false){

@@ -214,7 +214,7 @@ class TCPDF_IMAGES {
 			// number of markers (total of APP2 used)
 			$nom = max(1, ord($data[($pos + 13)]));
 			// get sequence segment
-			$icc[($msn - 1)] = substr($data, ($pos + 14), $length);
+			$icc[($msn - 1)] = wfPhpfunc::substr($data, ($pos + 14), $length);
 			// move forward to next sequence
 			$offset = ($pos + 14 + $length);
 		}
